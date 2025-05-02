@@ -1,0 +1,53 @@
+﻿@model List<Foodsy.Models.MenuItem>
+
+<h2>Your Cart</h2>
+
+@if (Model.Any())
+{
+    var groupedItems = Model
+        .GroupBy(item => new { item.Id, item.Name, item.Price })
+        .Select(group => new
+        {
+            MenuItem = group.Key,
+            Quantity = group.Count(),
+            TotalPrice = group.Key.Price * group.Count()
+        })
+        .ToList();
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price (Each)</th>
+                <th>Total Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in groupedItems)
+            {
+                <tr>
+                    <td>@item.MenuItem.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.MenuItem.Price.ToString("C")</td>
+                    <td>@item.TotalPrice.ToString("C")</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" asp-controller="Order" method="post">
+                            <input type="hidden" name="menuItemId" value="@item.MenuItem.Id" />
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="PlaceOrder" asp-controller="Order" method="post">
+        <button type="submit" class="btn btn-success">Proceed to Checkout</button>
+    </form>
+}
+else
+{
+    <p>Your cart is empty.</p>
+}

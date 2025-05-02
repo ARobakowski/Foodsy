@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Foodsy.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h2>Manage Users</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Email</th>
+            <th>Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="4" class="text-center">No users found</td>
+            </tr>
+        }
+        else
+        {
+            int index = 1;
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@index</td>
+                    <td>@user.Email</td>
+                    <td>@user.UserName</td>
+                </tr>
+                index++;
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model List<Foodsy.Models.MenuItem>
+
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<h2>Menu</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <p>No menu items available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Buy</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <form asp-action="AddToCart" asp-controller="Order" method="post">
+                            <input type="hidden" name="menuItemId" value="@item.Id" />
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <div class="text-center mt-4">
+            <a href="@Url.Action("ViewCart", "Order")" class="btn btn-success">Go to Order</a>
+        </div>
+    </table>
+}

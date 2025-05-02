@@ -1,0 +1,57 @@
+﻿@model Foodsy.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<h2>Order Confirmation</h2>
+
+<p>Thank you for your order! Here are the details:</p>
+
+<h3>Order Summary</h3>
+<p><strong>Order ID:</strong> @Model.Id</p>
+<p><strong>Order Date:</strong> @Model.OrderDate</p>
+<p><strong>Total Amount:</strong> $@Model.TotalAmount</p>
+
+<h4>Items Ordered:</h4>
+
+@if (Model.OrderItems.Any())
+{
+    var groupedItems = Model.OrderItems
+        .GroupBy(item => new { item.MenuItemId, item.MenuItemName, item.Price })
+        .Select(group => new
+        {
+            ItemName = group.Key.MenuItemName,
+            Price = group.Key.Price,
+            Quantity = group.Sum(x => x.Quantity)
+        })
+        .ToList();
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price (Each)</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in groupedItems)
+            {
+                        <tr>
+                            <td>@item.ItemName</td>
+                            <td>$@item.Price</td>
+                            <td>@item.Quantity</td>
+                            <td>$@(item.Price * item.Quantity)</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <p>No items found in this order.</p>
+}
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>

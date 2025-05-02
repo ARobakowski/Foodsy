@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+<p>Welcome to the admin dashboard. Here, you can view and manage your system's data.</p>
+
+<div>
+    <h4>Admin Panel</h4>
+    <ul>
+        <li><a href="@Url.Action("ManageUsers", "Admin")">Manage Users</a></li>
+        <li><a href="@Url.Action("ManageOrders", "Admin")">Manage Orders</a></li>
+        <li><a href="@Url.Action("ViewReports", "Admin")">View Reports</a></li>
+    </ul>
+</div>

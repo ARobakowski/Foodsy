@@ -1,0 +1,30 @@
+﻿@model List<dynamic>
+@{
+    ViewData["Title"] = "Customer Activity Report";
+}
+
+<h2>Customer Activity Report</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>CustomerID</th>
+            <th>Order Count</th>
+            <th>Total Spent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.FullName</td>
+                <td>@customer.CustomerId</td>
+                <td>@customer.OrderCount</td>
+                <td>@customer.TotalSpent.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("ViewReports", "Admin")">Back to Reports</a>

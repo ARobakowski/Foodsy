@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Monthly Sales Report";
+}
+
+<h2>Monthly Sales Report - @ViewData["Month"]</h2>
+<p><strong>Total Orders:</strong> @ViewData["TotalOrders"]</p>
+<p><strong>Total Sales:</strong> @ViewData["TotalSales"]$</p>
+
+<a href="@Url.Action("ViewReports", "Admin")">Back to Reports</a>

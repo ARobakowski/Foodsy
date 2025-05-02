@@ -1,0 +1,43 @@
+﻿@model List<Foodsy.Models.Order>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+<h2>Manage Orders</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Items Ordered</th>
+            <th>Total Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>
+                    @{
+                        var groupedItems = order.OrderItems
+                        .GroupBy(item => item.MenuItemName)
+                        .Select(group => $"{group.Key} (x{group.Sum(i => i.Quantity)})");
+                        @string.Join(", ", groupedItems)
+                    }
+                </td>
+                <td>@order.OrderItems.Sum(item => item.Quantity * item.Price).ToString("C")</td>
+                <td>
+                    <form asp-controller="Order" asp-action="DeleteOrder" method="post">
+                        <input type="hidden" name="id" value="@order.Id" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this order?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
