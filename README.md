@@ -1,5 +1,7 @@
 # Project Topic: Online Ordering System for Restaurants
 
+![project1img](https://github.com/user-attachments/assets/eb23dd9a-e4bf-46dc-9247-5a179d19b481)
+
 ## Project Description
 The application enables customers to place online orders at a restaurant. The system allows users to browse the menu, add products to their cart, and finalize their orders. The administrator has access to manage the menu, view orders, and generate reports regarding sales and customer activity.
 
