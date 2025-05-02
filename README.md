@@ -18,3 +18,5 @@ The application enables customers to place online orders at a restaurant. The sy
 - Cart handling and order placement
 - Admin panel with reports
 - Server-side and client-side data validation
+
+[Short video off the app](https://www.youtube.com/watch?v=GaBa7ZDEf4w)
